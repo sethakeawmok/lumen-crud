@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     loadproducts() {
-      axios.get("http://lumen-crud.com/api/products",{
+      axios.get("http://localhost/lumen-crud/public/api/products",{
        action:'fetchAll'
       }).then((response) => {
         this.products = response.data.data;
@@ -81,7 +81,7 @@ export default {
       });
     },
     changPage(num){
-      axios.get("http://lumen-crud.com/api/products?page="+num)
+      axios.get("http://localhost/lumen-crud/public/api/products?page="+num)
       .then((response) => {
         this.products = response.data.data;
         this.ex1CurrentPage = response.data.current_page;
