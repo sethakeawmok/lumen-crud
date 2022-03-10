@@ -8,12 +8,12 @@ export default {
     },
 
     getters: {
-        // autenticated (state){
-        //     return state.token && state.user 
-        // },
-        // user (state){
-        //     return state.user.data
-        // }
+        autenticated (state){
+            return state.token && state.user 
+        },
+        user (state){
+            return state.user
+        }
     },
 
     mutations: {
@@ -26,33 +26,25 @@ export default {
     },
     actions: {
         async signIn ({ dispatch }, credentials) {
-            let respone = await axios.post('http://lumen-crud.com/login', credentials)
+            let respone = await axios.post('http://localhost/lumen-crud/public/login', credentials)
              
-            //console.log(respone)
-            dispatch('attempt', respone.data.api_token)
+            return dispatch('attempt', respone.data.api_token)
         },
         
         async attempt ({ commit }, token) {
-
-            //console.log(token)
+ 
             if (token){
                 commit('SET_TOKEN', token)
             }
+            if (!token){
+                return
+            }
             
-            // if (!token){
-            //     return
-            // }
-
             try {
-                let respone = await axios.get('http://lumen-crud.com/me', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                }) 
-console.log(respone)
-                //commit('SET_USER', respone.data)
-            } catch(e){
+                let respone = await axios.get('http://localhost/lumen-crud/public/api/me') 
                 
+                commit('SET_USER', respone.data)
+            } catch(e){
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
             }

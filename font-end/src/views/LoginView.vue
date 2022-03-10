@@ -20,14 +20,16 @@
     <button class="w-100 btn btn-lg btn-primary"  type="submit">Sign in</button>
     </form>
 </main>
+{{authenticated}}
+{{user}}
 </div>
   
 
 </template>
 
 <script>
-import axios from 'axios'
 import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'LoginView',
@@ -45,18 +47,18 @@ export default {
     }),
     login() {
       //let self = this;
-      axios.get('http://lumen-crud.com/me',{
-        
-                    headers: {
-                        'Authorization': 'Bearer 444444444444'
-                    }
-      }).then(function(response){
-        console.log(response);
-      });
+      this.signIn(this.form)
+      //this.$router.push({ name: 'products' })
+      location.href = "/products"
 
-      //this.signIn(this.form)
     }
     
+  },
+  computed: {
+      ...mapGetters({
+          authenticated: 'auth/autenticated',
+          user: 'auth/user'
+      })
   },
   mounted() {
   },

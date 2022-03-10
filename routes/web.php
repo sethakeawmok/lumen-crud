@@ -18,6 +18,9 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api/', 'middleware' => 'jwt.auth'], function ($router) {
+    
+    $router->get('me', 'UserController@me');
+
     $router->get('products', 'ProductController@index');
     $router->get('products/{id}', 'ProductController@show');
     $router->post('products', 'ProductController@store');
@@ -27,7 +30,7 @@ $router->group(['prefix' => 'api/', 'middleware' => 'jwt.auth'], function ($rout
 
 $router->post('register', 'UserController@register');
 $router->post('login', 'UserController@login');
-$router->get('me', 'UserController@me');
+
 
 
 

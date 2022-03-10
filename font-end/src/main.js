@@ -9,6 +9,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
 import 'sweetalert2/dist/sweetalert2.min.css';
+import axios from 'axios'
+
+require('@/store/subscriber')
+
+axios.defaults.baseURL = 'http://localhost/lumen-crud/public/'
+
+store.dispatch('auth/attempt', localStorage.getItem('token'))
 
 const app = createApp(App)
 

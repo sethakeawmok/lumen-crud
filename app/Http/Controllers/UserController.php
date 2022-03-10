@@ -85,19 +85,20 @@ class UserController extends Controller
     {
 
         $key = env('JWT_SECRET');
-		//$header = $request->headers('Authorization');
-        return $request->headers;
-        // $token = explode(' ', $header)[1];
-		// if ($token) { 
-        //     //$user = JWT::decode($token, new key (env('JWT_SECRET'),'HS256'));
-
-        //     //return response()->json($user);
-             //return 'Invalid Token';
-        //     //return $this->responseRequestSuccess($user);
-        // } else {
-        //     return 'Invalid Token';
-        // }
+		$header = $request->header('Authorization');
+        if (empty($header) ){
+            $token = '';
+        } else {
+            $token = explode(' ', $header)[1];
+        }
         
+		if ($token) { 
+            $user = JWT::decode($token, new key (env('JWT_SECRET'),'HS256'));
+
+            return response()->json($user);
+        } else {
+            return 'Invalid Token';
+        }
 
     }
 
