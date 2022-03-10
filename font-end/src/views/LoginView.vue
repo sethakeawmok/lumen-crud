@@ -20,8 +20,6 @@
     <button class="w-100 btn btn-lg btn-primary"  type="submit">Sign in</button>
     </form>
 </main>
-{{authenticated}}
-{{user}}
 </div>
   
 
@@ -29,7 +27,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'LoginView',
@@ -47,18 +44,11 @@ export default {
     }),
     login() {
       //let self = this;
-      this.signIn(this.form)
-      //this.$router.push({ name: 'products' })
-      location.href = "/products"
-
-    }
-    
-  },
-  computed: {
-      ...mapGetters({
-          authenticated: 'auth/autenticated',
-          user: 'auth/user'
+      this.signIn(this.form).then(() => {
+        this.$router.replace({ name: 'products' })
       })
+    } 
+    
   },
   mounted() {
   },
