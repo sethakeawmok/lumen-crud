@@ -81,6 +81,13 @@ class UserController extends Controller
         
     }
 
+    public function logout()
+    {
+
+       no();
+       auth()->logout();
+    }
+
     public function me(Request $request)
     {
 

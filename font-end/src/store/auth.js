@@ -51,11 +51,11 @@ export default {
             }
         },
 
-        // signOut ({commit}) {
-        //     //return axios.post('api/logout').then(() => {
-        //         // commit('SET_TOKEN', null)
-        //         // commit('SET_USER', null)
-        //     //})
-        // }
+        signOut ({commit}) {
+            return axios.post('http://localhost/lumen-crud/public/logout').then(() => {
+                commit('SET_TOKEN', null)
+                commit('SET_USER', null)
+            })
+        }
     } 
 }

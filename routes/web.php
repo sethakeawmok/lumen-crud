@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api/', 'middleware' => 'jwt.auth'], function ($rout
 
 $router->post('register', 'UserController@register');
 $router->post('login', 'UserController@login');
+$router->post('logout', 'UserController@logout');
 
 
 

@@ -19,7 +19,16 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: (to, from, next) => {
+        if (store.getters['auth/autenticated']){
+          return next({
+              name: 'products'
+          })
+        }
+
+        next()
+      }
     },
     {
       path: '/products',
