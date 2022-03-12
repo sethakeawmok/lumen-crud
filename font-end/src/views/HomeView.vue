@@ -12,7 +12,7 @@ export default {
   name: 'HomeView',
   computed: {
       ...mapGetters({
-          authenticated: 'auth/autenticated',
+          authenticated: 'auth/authenticated',
           user: 'auth/user'
       })
   }
