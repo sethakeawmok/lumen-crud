@@ -17,8 +17,15 @@
               </li>
             </ul>
             <form class="d-flex">
-                <router-link :to="{ name: 'login' }" class="nav-link">Login</router-link>
-                <router-link :to="{ name: 'login' }" class="nav-link">Logout</router-link>
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
+                 <li class="nav-item" v-if="authenticated">
+                  <a href="#" class="nav-link" @click="logout">Logout</a>
+                </li>
+                <li class="nav-item" v-else>
+                  <router-link :to="{ name: 'login' }" class="nav-link">Login</router-link>
+                </li>
+              </ul>
+                
             </form>
           </div>
         </div>
@@ -33,9 +40,28 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    ...mapGetters({ 
+      authenticated: 'auth/authenticated',
+      user: 'auth/user'
+    })
+  },
+  methods: {
+    ...mapActions({
+      signOut: 'auth/signOut'
+    }),
+    logout() {
+      //let self = this;
+      this.signOut().then(() => {
+        this.$router.replace({ name: 'login' })
+      })
+    } 
+    
+  },
 }
 </script>
 

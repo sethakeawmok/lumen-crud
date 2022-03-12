@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     loadproduct() {
-      axios.get("http://lumen-crud.com/api/products/"+this.$route.params.product_id,)
+      axios.get("http://localhost/lumen-crud/public/api/products/"+this.$route.params.product_id,)
       .then((response) => {
         this.product.id = response.data.id;
         this.product.name = response.data.product_name;
@@ -70,7 +70,7 @@ export default {
     },
     submitData() {
       let self = this;
-      axios.post('http://lumen-crud.com/api/products/'+this.product.id, {
+      axios.post('http://localhost/lumen-crud/public/api/products/'+this.product.id, {
         action:'update',
         product_name:this.product.name, 
         product_detail:this.product.detail,

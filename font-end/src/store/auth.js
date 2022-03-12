@@ -8,7 +8,7 @@ export default {
     },
 
     getters: {
-        autenticated (state){
+        authenticated (state){
             return state.token
             //return state.token && state.user 
         },
@@ -27,9 +27,9 @@ export default {
     },
     actions: {
         async signIn ({ dispatch }, credentials) {
-            let respone = await axios.post('http://localhost/lumen-crud/public/login', credentials)
+            let respone = await axios.post('http://localhost/lumen-crud/public/api/login', credentials)
              
-            return dispatch('attempt', respone.data.api_token)
+            return dispatch('attempt', respone.data.access_token)
         },
         
         async attempt ({ commit }, token) {
@@ -51,11 +51,11 @@ export default {
             }
         },
 
-        // signOut ({commit}) {
-        //     //return axios.post('api/logout').then(() => {
-        //         // commit('SET_TOKEN', null)
-        //         // commit('SET_USER', null)
-        //     //})
-        // }
+        signOut ({commit}) {
+            return axios.post('http://localhost/lumen-crud/public/api/logout').then(() => {
+                commit('SET_TOKEN', null)
+                commit('SET_USER', null)
+            })
+        }
     } 
 }

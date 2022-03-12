@@ -17,21 +17,22 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api/', 'middleware' => 'jwt.auth'], function ($router) {
+$router->post('register', 'UserController@register');
+// $router->post('login', 'UserController@login');
+$router->group(['prefix' => 'api'], function () use ($router) {
     
-    $router->get('me', 'UserController@me');
+  
+    $router->post('login', 'AuthController@login');
+    $router->post('logout', 'AuthController@logout');
+    $router->get('me', 'AuthController@me');
 
     $router->get('products', 'ProductController@index');
     $router->get('products/{id}', 'ProductController@show');
     $router->post('products', 'ProductController@store');
     $router->post('products/{id}', 'ProductController@update');
     $router->delete('products/{id}', 'ProductController@delete');
-});
-
-$router->post('register', 'UserController@register');
-$router->post('login', 'UserController@login');
-
-
+ 
+ });
 
 
 

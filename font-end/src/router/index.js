@@ -19,14 +19,23 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: (to, from, next) => {
+        if (store.getters['auth/authenticated']){
+          return next({
+              name: 'products'
+          })
+        }
+        
+        next()
+      }
     },
     {
       path: '/products',
       name: 'products',
       component: ProductsView,
       beforeEnter: (to, from, next) => {
-        if (!store.getters['auth/autenticated']){
+        if (!store.getters['auth/authenticated']){
           return next({
               name: 'login'
           })
@@ -41,7 +50,7 @@ const router = createRouter({
       name: 'ProductAdd',
       component: ProductAddView,
       beforeEnter: (to, from, next) => {
-        if (!store.getters['auth/autenticated']){
+        if (!store.getters['auth/authenticated']){
           return next({
               name: 'login'
           })
@@ -55,7 +64,7 @@ const router = createRouter({
       name: 'ProductEdit',
       component: ProductEditView,
       beforeEnter: (to, from, next) => {
-        if (!store.getters['auth/autenticated']){
+        if (!store.getters['auth/authenticated']){
           return next({
               name: 'login'
           })
@@ -69,7 +78,7 @@ const router = createRouter({
       name: 'users',
       component: UsersView,
       beforeEnter: (to, from, next) => {
-        if (!store.getters['auth/autenticated']){
+        if (!store.getters['auth/authenticated']){
           return next({
               name: 'login'
           })
